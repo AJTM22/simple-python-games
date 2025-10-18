@@ -50,22 +50,76 @@
 # latest_score
 # times_played
 
-import random, time, psycopg2
+import random, time, psycopg2, os, platform
 
-def menu():
+def clear_screen():
+    command = 'cls' if platform.system() == 'Windows' else 'clear'
+    os.system(command)
+
+def login():
+    """
+    Asks the user if they are a new player or a returning player
+    If new user, create new user in the database and add all data specific to the player
+    Else, enter player name and display their current records
+    """
     pass
 
+def menu():
+    """
+    Serves as the main menu of the program
+    It displays the available games the player can play
+    Depending on the choice, the player will be redirected to the game
+    """
+    clear_screen()
+    print('Welcome to my simple python games program!')
+    print('Here are the available games:')
+    print('1. Number guessing\n2. Rock paper scissor\n3. Dice roller\n4. Math quiz\n5. Even or Odd')
+    game = input('Choose the number of the game you want to play: ')
+
+    match game:
+        case '1':
+            number_guessing()
+        case '2':
+            rock_paper_scissor()
+        case '3':
+            dice_roller()
+        case '4':
+            math_quiz()
+        case '5':
+            even_or_odd()
+
 def number_guessing():
+    """
+    
+    """
+    clear_screen()
     pass
 
 def rock_paper_scissor():
+    """
+    
+    """
+    clear_screen()
     pass
 
 def dice_roller():
+    """
+    
+    """
+    clear_screen()
     pass
 
 def math_quiz():
+    """
+    
+    """
+    clear_screen()
     pass
 
 def even_or_odd():
+    """
+    
+    """
+    clear_screen()
     pass
+
