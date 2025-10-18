@@ -33,7 +33,7 @@
 # Database structure
 # players table
 # games table
-# games played table
+# player_games table
 
 # Players table structure
 # player_id
@@ -43,7 +43,7 @@
 # game_id
 # game_name
 
-# Games played table
+# Player-Games table
 # player_id
 # game_id
 # best_score
