@@ -94,9 +94,42 @@ def menu():
 
 def number_guessing():
     """
+    Game will keep looping until the player gets the number
+    Number of tries will be tracked and sent to the database
+    Hints will be displayed to allow the user to get near the number (Higher or lower)
     
+    If the player beats their personal record, a congratulatory remark will be displayed
+    If not, the number of tries will be displayed
     """
     clear_screen()
+    print('Welcome to the Number Guessing Game!')
+    random_number = random.randint(1, 100 + 1)
+    tries = 1
+    random_number_guessed = False
+
+    while not random_number_guessed:
+        guess_string = input('Enter your guess: ')
+
+        try:
+            guess = int(guess_string)
+        except:
+            print('Invalid guess!\n')
+            tries += 1
+            continue
+
+        if guess == random_number:
+            random_number_guessed = True
+        
+        else:
+            if guess < random_number:
+                print('Guess higher!\n')
+            
+            else:
+                print('Guess lower!\n')
+
+        tries += 1
+    
+    # TODO: Add logic to check and store in the database
     pass
 
 def rock_paper_scissor():
