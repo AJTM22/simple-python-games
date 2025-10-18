@@ -49,7 +49,6 @@
 # best_score
 # latest_score
 # times_played
-# date_played
 
 import random, time, psycopg2
 
