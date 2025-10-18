@@ -87,6 +87,10 @@ def menu():
             math_quiz()
         case '5':
             even_or_odd()
+        case _:
+            print('Game not found. Try again after a few seconds')
+            time.sleep(5)
+            menu()
 
 def number_guessing():
     """
