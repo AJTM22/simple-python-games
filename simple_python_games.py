@@ -118,7 +118,7 @@ def login(): # TODO: Use tabulate module to fix the display of player data
         headers = ['Player name', 'Game name', 'Best score', 'Latest score', 'Times played']
         player_data = cursor.fetchall()
         print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
-        time.sleep(7)
+        time.sleep(10)
         connection.close()
         cursor.close()
         menu(player_id)
