@@ -113,7 +113,7 @@ def login():
                        
                        WHERE players.player_name = %s;""", (player_name,))
         print(cursor.fetchall)
-        time.sleep(5)
+        time.sleep(7)
         connection.close()
         cursor.close()
         menu(player_id)
