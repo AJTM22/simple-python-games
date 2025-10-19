@@ -167,7 +167,7 @@ def number_guessing(player_id, game_id: int):
 
         try:
             guess = int(guess_string)
-        except:
+        except ValueError:
             print('Invalid guess!\n')
             tries += 1
             continue
@@ -181,14 +181,41 @@ def number_guessing(player_id, game_id: int):
             
             else:
                 print('Guess lower!\n')
-
-        tries += 1
+            
+            tries += 1
     
     print(f'You took {tries} to guess the number!')
     
-    # TODO: Add logic to check and store in the database
     connection = get_connection()
     cursor = connection.cursor()
+
+    cursor.execute('SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;', (player_id, game_id))
+    result = cursor.fetchone()
+
+    # If result is None, it is possible the player already exists but hasn't played any
+    # Therefore, if the result is None, insert data to database
+    if result == None:
+        cursor.execute('INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);', (player_id, game_id, tries, tries))
+        connection.commit()
+
+    else:
+        best_score = result[0]
+        times_played = result[1]
+
+        if best_score > tries:
+            print('Congratulations! You\'ve beaten your personal best!')
+            cursor.execute('UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;', (tries, tries, times_played + 1, player_id, game_id))
+            connection.commit()
+
+        else:
+            cursor.execute('UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;', (tries, times_played + 1, player_id, game_id))
+            connection.commit()
+    
+    connection.close()
+    cursor.close()
+
+    # TODO: Logic to ask the player to play again
+    pass
 
 def rock_paper_scissor(player_id, game_id: int):
     """
