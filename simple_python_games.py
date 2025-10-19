@@ -51,10 +51,22 @@
 # times_played
 
 import random, time, psycopg, os, platform
+from dotenv import load_dotenv
 
 def clear_screen():
     command = 'cls' if platform.system() == 'Windows' else 'clear'
     os.system(command)
+
+def get_connection():
+    load_dotenv()
+    
+    return psycopg.connect(
+        dbname=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        host=os.getenv("DB_HOST"),
+        port=int(os.getenv("DB_PORT"))
+    )
 
 def login():
     """
@@ -62,6 +74,13 @@ def login():
     If new user, create new user in the database and add all data specific to the player
     Else, enter player name and display their current records
     """
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    player = input('Enter your player name: ')
+
+    connection.close()
+    cursor.close()
     pass
 
 def menu():
