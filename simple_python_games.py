@@ -144,8 +144,8 @@ def menu(player_id):
             even_or_odd(player_id, 5)
         case _:
             print('Game not found. Try again after a few seconds')
-            time.sleep(5)
-            menu()
+            time.sleep(3)
+            login()
 
 def number_guessing(player_id, game_id: int):
     """
