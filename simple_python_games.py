@@ -69,7 +69,7 @@ def get_connection():
         port=int(os.getenv("DB_PORT"))
     )
 
-def login(): # TODO: Use tabulate module to fix the display of player data
+def login():
     """
     Asks the user if they are a new player or a returning player
     If new user, create new user in the database and add all data specific to the player
@@ -131,7 +131,7 @@ def menu(player_id):
     """
     clear_screen()
     print('Welcome to my simple python games program!')
-    print('Here are the available games:')
+    print('Here are the available games:') # Additional feature could be to display player stats
     print('1. Number guessing\n2. Rock paper scissor\n3. Dice roller\n4. Math quiz\n5. Even or Odd')
     game = input('Choose the number of the game you want to play: ')
 
