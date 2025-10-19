@@ -79,28 +79,46 @@ def login():
 
     player_name = input('Enter your player name: ')
     cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
-    player_id = cursor.fetchone()
+    result = cursor.fetchone()
 
-    if player_id == None:
+    if result == None:
         print('No record found with your player name')
         print('You must be a new player!')
         print(f'Welcome, {player_name}!')
         cursor.execute("INSERT INTO players(player_name) VALUES(%s);", (player_name,))
+        cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
+        result = cursor.fetchone()
+        player_id = result[0]
         time.sleep(3)
         connection.close()
         cursor.close()
-        menu()
+        menu(player_id)
 
     else:
+        player_id = result[0]
         print(f'Welcome back, {player_name}!')
         print('Here are your current stats:')
-        print()
+        cursor.execute("""
+                       SELECT
+                       players.player_name,
+                       games.game_name,
+                       player_games.best_score,
+                       player_games.latest_score,
+                       player_games.times_played
+                       
+                       FROM player_games
+                       
+                       INNER JOIN players ON player_games.player_id = players.player_id
+                       INNER JOIN games ON player_games.game_id = games.games_id
+                       
+                       WHERE players.player_name = %s;""", (player_name,))
+        print(cursor.fetchall)
         time.sleep(5)
         connection.close()
         cursor.close()
-        menu()
+        menu(player_id)
 
-def menu():
+def menu(player_id):
     """
     Serves as the main menu of the program
     It displays the available games the player can play
