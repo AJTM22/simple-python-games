@@ -50,7 +50,7 @@
 # latest_score
 # times_played
 
-import random, time, psycopg2, os, platform
+import random, time, psycopg, os, platform
 
 def clear_screen():
     command = 'cls' if platform.system() == 'Windows' else 'clear'
