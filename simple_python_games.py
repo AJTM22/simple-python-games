@@ -184,8 +184,11 @@ def number_guessing(player_id, game_id: int):
 
         tries += 1
     
+    print(f'You took {tries} to guess the number!')
+    
     # TODO: Add logic to check and store in the database
-    pass
+    connection = get_connection()
+    cursor = connection.cursor()
 
 def rock_paper_scissor(player_id, game_id: int):
     """
