@@ -68,7 +68,7 @@ def get_connection():
         port=int(os.getenv("DB_PORT"))
     )
 
-def login():
+def login(): # TODO: Use tabulate module to fix the display of player data
     """
     Asks the user if they are a new player or a returning player
     If new user, create new user in the database and add all data specific to the player
