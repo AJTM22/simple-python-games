@@ -86,6 +86,7 @@ def login():
         print('You must be a new player!')
         print(f'Welcome, {player_name}!')
         cursor.execute("INSERT INTO players(player_name) VALUES(%s);", (player_name,))
+        connection.commit()
         cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
         result = cursor.fetchone()
         player_id = result[0]
@@ -112,7 +113,7 @@ def login():
                        INNER JOIN games ON player_games.game_id = games.games_id
                        
                        WHERE players.player_name = %s;""", (player_name,))
-        print(cursor.fetchall)
+        print(cursor.fetchall())
         time.sleep(7)
         connection.close()
         cursor.close()
