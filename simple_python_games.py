@@ -133,21 +133,21 @@ def menu(player_id):
 
     match game:
         case '1':
-            number_guessing()
+            number_guessing(1)
         case '2':
-            rock_paper_scissor()
+            rock_paper_scissor(2)
         case '3':
-            dice_roller()
+            dice_roller(3)
         case '4':
-            math_quiz()
+            math_quiz(4)
         case '5':
-            even_or_odd()
+            even_or_odd(5)
         case _:
             print('Game not found. Try again after a few seconds')
             time.sleep(5)
             menu()
 
-def number_guessing():
+def number_guessing(game_id):
     """
     Game will keep looping until the player gets the number
     Number of tries will be tracked and sent to the database
@@ -187,28 +187,28 @@ def number_guessing():
     # TODO: Add logic to check and store in the database
     pass
 
-def rock_paper_scissor():
+def rock_paper_scissor(game_id):
     """
     
     """
     clear_screen()
     pass
 
-def dice_roller():
+def dice_roller(game_id):
     """
     
     """
     clear_screen()
     pass
 
-def math_quiz():
+def math_quiz(game_id):
     """
     
     """
     clear_screen()
     pass
 
-def even_or_odd():
+def even_or_odd(game_id):
     """
     
     """
