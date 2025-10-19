@@ -213,9 +213,9 @@ def number_guessing(player_id, game_id: int):
     
     connection.close()
     cursor.close()
-
-    # TODO: Logic to ask the player to play again
-    pass
+    
+    play = input('Do you want to play again? (y/n): ')
+    number_guessing(player_id, game_id) if play.lower() == 'y' else menu(player_id)
 
 def rock_paper_scissor(player_id, game_id: int):
     """
