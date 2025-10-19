@@ -85,6 +85,7 @@ def login():
         print('No record found with your player name')
         print('You must be a new player!')
         print(f'Welcome, {player_name}!')
+        cursor.execute("INSERT INTO players(player_name) VALUES(%s);", (player_name,))
         time.sleep(3)
         connection.close()
         cursor.close()
