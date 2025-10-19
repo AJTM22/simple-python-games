@@ -110,10 +110,10 @@ def login():
                        FROM player_games
                        
                        INNER JOIN players ON player_games.player_id = players.player_id
-                       INNER JOIN games ON player_games.game_id = games.games_id
+                       INNER JOIN games ON player_games.game_id = games.game_id
                        
                        WHERE players.player_name = %s;""", (player_name,))
-        print(cursor.fetchall())
+        print(cursor.fetchall()) # Come back here later to check data
         time.sleep(7)
         connection.close()
         cursor.close()
