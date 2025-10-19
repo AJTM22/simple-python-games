@@ -59,7 +59,7 @@ def clear_screen():
 
 def get_connection():
     load_dotenv()
-    
+
     return psycopg.connect(
         dbname=os.getenv("DB_NAME"),
         user=os.getenv("DB_USER"),
@@ -77,11 +77,27 @@ def login():
     connection = get_connection()
     cursor = connection.cursor()
 
-    player = input('Enter your player name: ')
+    player_name = input('Enter your player name: ')
+    cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
+    player_id = cursor.fetchone()
 
-    connection.close()
-    cursor.close()
-    pass
+    if player_id == None:
+        print('No record found with your player name')
+        print('You must be a new player!')
+        print(f'Welcome, {player_name}!')
+        time.sleep(3)
+        connection.close()
+        cursor.close()
+        menu()
+
+    else:
+        print(f'Welcome back, {player_name}!')
+        print('Here are your current stats:')
+        print()
+        time.sleep(5)
+        connection.close()
+        cursor.close()
+        menu()
 
 def menu():
     """
@@ -179,3 +195,4 @@ def even_or_odd():
     clear_screen()
     pass
 
+login()
