@@ -52,6 +52,7 @@
 
 import random, time, psycopg, os, platform
 from dotenv import load_dotenv
+from tabulate import tabulate
 
 def clear_screen():
     command = 'cls' if platform.system() == 'Windows' else 'clear'
@@ -113,7 +114,10 @@ def login(): # TODO: Use tabulate module to fix the display of player data
                        INNER JOIN games ON player_games.game_id = games.game_id
                        
                        WHERE players.player_name = %s;""", (player_name,))
-        print(cursor.fetchall()) # Come back here later to check data
+        
+        headers = ['Player name', 'Game name', 'Best score', 'Latest score', 'Times played']
+        player_data = cursor.fetchall()
+        print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
         time.sleep(7)
         connection.close()
         cursor.close()
