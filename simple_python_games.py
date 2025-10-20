@@ -223,7 +223,7 @@ def number_guessing(player_id, game_id: int):
 
 def rock_paper_scissor(player_id, game_id: int):
     """
-    
+    Simulates a player vs computer
     """
     clear_screen()
     pass
