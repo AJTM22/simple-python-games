@@ -172,6 +172,9 @@ def number_guessing(player_id, game_id: int):
 def rock_paper_scissor(player_id, game_id: int):
     """
     Simulates a player vs computer
+    Player chooses their move
+    Computer choose afterwards
+    Best out of 5
     """
     clear_screen()
     pass
