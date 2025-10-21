@@ -23,52 +23,50 @@ def login():
     If new user, create new user in the database and add all data specific to the player
     Else, enter player name and display their current records
     """
-    connection = get_connection()
-    cursor = connection.cursor()
+    with get_connection() as connection:
+        with connection.cursor() as cursor:
+            player_name = input('Enter your player name: ')
+            cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
+            result = cursor.fetchone()
 
-    player_name = input('Enter your player name: ')
-    cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
-    result = cursor.fetchone()
+            if result == None:
+                print('No record found with your player name')
+                print('You must be a new player!')
+                print(f'Welcome, {player_name}!')
+                cursor.execute("INSERT INTO players(player_name) VALUES(%s);", (player_name,))
+                connection.commit()
+                cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
+                result = cursor.fetchone()
+                player_id = result[0]
+                time.sleep(3)
+                connection.close()
+                cursor.close()
+                menu(player_id)
 
-    if result == None:
-        print('No record found with your player name')
-        print('You must be a new player!')
-        print(f'Welcome, {player_name}!')
-        cursor.execute("INSERT INTO players(player_name) VALUES(%s);", (player_name,))
-        connection.commit()
-        cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
-        result = cursor.fetchone()
-        player_id = result[0]
-        time.sleep(3)
-        connection.close()
-        cursor.close()
-        menu(player_id)
+            else:
+                player_id = result[0]
+                print(f'Welcome back, {player_name}!')
+                print('Here are your current stats:')
+                cursor.execute("""
+                            SELECT
+                            games.game_name,
+                            player_games.best_score,
+                            player_games.latest_score,
+                            player_games.times_played
+                            
+                            FROM player_games
+                            
+                            INNER JOIN players ON player_games.player_id = players.player_id
+                            INNER JOIN games ON player_games.game_id = games.game_id
+                            
+                            WHERE players.player_name = %s;""", (player_name,))
+                
+                headers = ['Game name', 'Best score', 'Latest score', 'Times played']
+                player_data = cursor.fetchall()
+                print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
+                time.sleep(10)
 
-    else:
-        player_id = result[0]
-        print(f'Welcome back, {player_name}!')
-        print('Here are your current stats:')
-        cursor.execute("""
-                       SELECT
-                       games.game_name,
-                       player_games.best_score,
-                       player_games.latest_score,
-                       player_games.times_played
-                       
-                       FROM player_games
-                       
-                       INNER JOIN players ON player_games.player_id = players.player_id
-                       INNER JOIN games ON player_games.game_id = games.game_id
-                       
-                       WHERE players.player_name = %s;""", (player_name,))
-        
-        headers = ['Game name', 'Best score', 'Latest score', 'Times played']
-        player_data = cursor.fetchall()
-        print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
-        time.sleep(10)
-        connection.close()
-        cursor.close()
-        menu(player_id)
+    menu(player_id)
 
 def menu(player_id):
     """
