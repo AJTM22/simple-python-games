@@ -89,7 +89,7 @@ def menu(player_id):
     print('Welcome to my simple python games program!')
     print('Here are the available options:')
     print('1. Number guessing\n2. Rock paper scissor\n3. Dice roller\n4. Math quiz\n5. Even or Odd\n6. Display player stats')
-    game = input('Choose the number of the game you want to play: ')
+    game = input('Choose the number of the available option: ')
 
     match game:
         case '1':
