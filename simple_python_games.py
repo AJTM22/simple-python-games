@@ -176,8 +176,47 @@ def rock_paper_scissor(player_id, game_id: int):
     Computer choose afterwards
     Best out of 5
     """
-    clear_screen()
-    pass
+    choices = ['Rock', 'Paper', 'Scissor']
+    player_move_value, computer_move_value = None
+    player_points, computer_points = 0
+
+    i = 5
+    while i >= 0:
+        clear_screen()
+        print('Welcome to Rock-Paper-Scissor Game!')
+        print('Best out of 5!')
+        print('Here are your choices:')
+        print('1. Rock\n2. Paper\n3. Scissor')
+
+        player_move = input('Enter the number of your move: ')
+        match player_move:
+            case '1':
+                player_move_value = 0
+            case '2':
+                player_move_value = 1
+            case '3':
+                player_move_value = 2
+            case _:
+                print('Invalid move. Try again!')
+                continue
+        
+        computer_move_value = random.randint(0, 2)
+
+        print(f'Player chose: {choices[player_move_value]}')
+        print(f'Computer chose: {choices[computer_move_value]}')
+
+        if (player_move_value - computer_move_value) % 3 == 1:
+            print('\nPlayer wins a point!')
+            player_points += 1
+        
+        elif (player_move_value - computer_move_value) % 3 == 2:
+            print('\nComputer wins a point!')
+            computer_points += 1
+        
+        else:
+            print('It\'s a tie!')
+
+        i -= 1
 
 def dice_roller(player_id, game_id: int):
     """
