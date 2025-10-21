@@ -193,7 +193,7 @@ def rock_paper_scissor(player_id, game_id: int):
     player_points, computer_points = 0, 0
 
     i = 5
-    while i >= 0:
+    while i > 0:
         clear_screen()
         print('Welcome to Rock-Paper-Scissor Game!')
         print('Best out of 5!')
