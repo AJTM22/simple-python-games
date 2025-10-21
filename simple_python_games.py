@@ -17,6 +17,32 @@ def get_connection():
         port=int(os.getenv("DB_PORT"))
     )
 
+def display_stats(player_id = None, player_name = None):
+    """
+    Takes in the player name or player id
+    Display the stats of the player
+    """
+    with get_connection() as connection:
+        with connection.cursor as cursor:
+            print('Here are your current stats:')
+            cursor.execute("""
+                        SELECT
+                        games.game_name,
+                        player_games.best_score,
+                        player_games.latest_score,
+                        player_games.times_played
+                        
+                        FROM player_games
+                        
+                        INNER JOIN players ON player_games.player_id = players.player_id
+                        INNER JOIN games ON player_games.game_id = games.game_id
+                        
+                        WHERE players.player_id = %s OR players.player_name = %s;""", (player_id, player_name))
+            
+            headers = ['Game name', 'Best score', 'Latest score', 'Times played']
+            player_data = cursor.fetchall()
+            print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
+
 def login():
     """
     Asks the user if they are a new player or a returning player
@@ -46,24 +72,7 @@ def login():
             else:
                 player_id = result[0]
                 print(f'Welcome back, {player_name}!')
-                print('Here are your current stats:')
-                cursor.execute("""
-                            SELECT
-                            games.game_name,
-                            player_games.best_score,
-                            player_games.latest_score,
-                            player_games.times_played
-                            
-                            FROM player_games
-                            
-                            INNER JOIN players ON player_games.player_id = players.player_id
-                            INNER JOIN games ON player_games.game_id = games.game_id
-                            
-                            WHERE players.player_name = %s;""", (player_name,))
-                
-                headers = ['Game name', 'Best score', 'Latest score', 'Times played']
-                player_data = cursor.fetchall()
-                print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
+                display_stats(player_name, player_id)
                 time.sleep(10)
 
     menu(player_id)
