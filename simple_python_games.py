@@ -85,8 +85,8 @@ def menu(player_id):
     """
     clear_screen()
     print('Welcome to my simple python games program!')
-    print('Here are the available games:') # Additional feature could be to display player stats
-    print('1. Number guessing\n2. Rock paper scissor\n3. Dice roller\n4. Math quiz\n5. Even or Odd')
+    print('Here are the available options:')
+    print('1. Number guessing\n2. Rock paper scissor\n3. Dice roller\n4. Math quiz\n5. Even or Odd\n6. Display player stats')
     game = input('Choose the number of the game you want to play: ')
 
     match game:
@@ -100,6 +100,8 @@ def menu(player_id):
             math_quiz(player_id, 4)
         case '5':
             even_or_odd(player_id, 5)
+        case '6':
+            display_stats(player_id = player_id)
         case _:
             print('Game not found. Try again after a few seconds')
             time.sleep(3)
