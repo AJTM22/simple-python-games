@@ -25,7 +25,7 @@ def display_stats(player_id = None, player_name = None):
     with get_connection() as connection:
         with connection.cursor() as cursor:
             print('Here are your current stats:')
-            cursor.execute("""
+            query = """
                         SELECT
                         games.game_name,
                         player_games.best_score,
@@ -37,7 +37,9 @@ def display_stats(player_id = None, player_name = None):
                         INNER JOIN players ON player_games.player_id = players.player_id
                         INNER JOIN games ON player_games.game_id = games.game_id
                         
-                        WHERE players.player_id = %s OR players.player_name = %s;""", (player_id, player_name))
+                        WHERE players.player_id = %s;
+                        """
+            cursor.execute(query, (player_id,))
             
             headers = ['Game name', 'Best score', 'Latest score', 'Times played']
             player_data = cursor.fetchall()
@@ -72,7 +74,7 @@ def login():
             else:
                 player_id = result[0]
                 print(f'Welcome back, {player_name}!')
-                display_stats(player_name, player_id)
+                display_stats(player_id)
                 time.sleep(10)
 
     menu(player_id)
@@ -101,7 +103,9 @@ def menu(player_id):
         case '5':
             even_or_odd(player_id, 5)
         case '6':
-            display_stats(player_id = player_id)
+            display_stats(player_id)
+            time.sleep(10)
+            menu(player_id)
         case _:
             print('Game not found. Try again after a few seconds')
             time.sleep(3)
