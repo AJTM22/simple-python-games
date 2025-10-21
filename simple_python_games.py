@@ -261,11 +261,11 @@ def rock_paper_scissor(player_id, game_id: int):
                 else:
                     print(f'\nTry to beat your personal best: {best_score} points!')
                     time.sleep(5)
-                    
+
                     cursor.execute('UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s', (player_points, times_played + 1, player_id, game_id))
                     connection.commit()
 
-    play = input('Do you want to play again? (y/n): ')
+    play = input('\nDo you want to play again? (y/n): ')
     rock_paper_scissor(player_id, game_id) if play.lower() == 'y' else menu(player_id)
 
 def dice_roller(player_id, game_id: int):
