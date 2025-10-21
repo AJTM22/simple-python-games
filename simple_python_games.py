@@ -225,6 +225,15 @@ def rock_paper_scissor(player_id, game_id: int):
     print('Here are the results of the game:')
     print(f'Player\'s points: {player_points}')
     print(f'Computer points: {computer_points}')
+
+    if player_points > computer_points:
+        print('\nCongratulations! You won!')
+    
+    elif player_points < computer_points:
+        print('\nYou lost! Better luck next time!')
+        
+    else:
+        print('\nIt\'s a tie! Let\'s try again!')
     
     with get_connection() as connection:
         with connection.cursor() as cursor:
@@ -232,42 +241,29 @@ def rock_paper_scissor(player_id, game_id: int):
             result = cursor.fetchone()
 
             if result == None:
-                if player_points > computer_points:
-                    print('\nCongratulations! You won!')
-                    print(f'{player_points} points is your personal new best!')
-                
-                elif player_points < computer_points:
-                    print('\nYou lost! Better luck next time!')
-                    print(f'{player_points} points is your personal new best!')
-                
-                else:
-                    print('\nIt\'s a tie! Let\'s try again!')
-                    print(f'{player_points} points is your personal new best!')
-                
+                print(f'\n{player_points} points is your new personal best!')
                 time.sleep(5)
+
                 cursor.execute('INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1)', (player_id, game_id, player_points, player_points))
                 connection.commit()
 
             else:
                 best_score = result[0]
                 times_played = result[1]
+                
+                if player_points > best_score:
+                    print(f'\n{player_points} points is your new personal best!')
+                    time.sleep(5)
 
-                if player_points > computer_points:
-                    print('\nCongratulations! You won!')
-
-                    if player_points > best_score:
-                        print(f'{player_points} points is your personal new best!')
+                    cursor.execute('UPDATE player_games SET best_score = %s, latest_score = %s, and times_played = %s WHERE player_id = %s AND game_id = %s', (player_points, player_points, times_played + 1, player_id, game_id))
+                    connection.commit()
                     
-                    else:
-                        print(f'Try to beat your personal best: {best_score} points!')
-                
-                elif player_points < computer_points:
-                    print('\nYou lost! Better luck next time!')
-                    pass # TODO: Continue the logic here and database connection
-                
                 else:
-                    print('\nIt\'s a tie! Let\'s try again!')
-                    print(f'{player_points} points is your personal new best!')
+                    print(f'\nTry to beat your personal best: {best_score} points!')
+                    time.sleep(5)
+                    
+                    cursor.execute('UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s', (player_points, times_played + 1, player_id, game_id))
+                    connection.commit()
 
     play = input('Do you want to play again? (y/n): ')
     rock_paper_scissor(player_id, game_id) if play.lower() == 'y' else menu(player_id)
