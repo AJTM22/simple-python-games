@@ -50,7 +50,6 @@ def login():
         print('Here are your current stats:')
         cursor.execute("""
                        SELECT
-                       players.player_name,
                        games.game_name,
                        player_games.best_score,
                        player_games.latest_score,
@@ -63,7 +62,7 @@ def login():
                        
                        WHERE players.player_name = %s;""", (player_name,))
         
-        headers = ['Player name', 'Game name', 'Best score', 'Latest score', 'Times played']
+        headers = ['Game name', 'Best score', 'Latest score', 'Times played']
         player_data = cursor.fetchall()
         print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
         time.sleep(10)
