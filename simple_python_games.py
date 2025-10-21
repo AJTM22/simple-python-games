@@ -198,6 +198,7 @@ def rock_paper_scissor(player_id, game_id: int):
                 player_move_value = 2
             case _:
                 print('Invalid move. Try again!')
+                time.sleep(2)
                 continue
         
         computer_move_value = random.randint(0, 2)
