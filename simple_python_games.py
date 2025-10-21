@@ -204,7 +204,7 @@ def rock_paper_scissor(player_id, game_id: int):
         computer_move_value = random.randint(0, 2)
 
         print(f'\nPlayer chose: {choices[player_move_value]}')
-        print(f'\nComputer chose: {choices[computer_move_value]}')
+        print(f'Computer chose: {choices[computer_move_value]}')
 
         if (player_move_value - computer_move_value) % 3 == 1:
             print('Player wins a point!')
