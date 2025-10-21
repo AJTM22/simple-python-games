@@ -23,7 +23,7 @@ def display_stats(player_id = None, player_name = None):
     Display the stats of the player
     """
     with get_connection() as connection:
-        with connection.cursor as cursor:
+        with connection.cursor() as cursor:
             print('Here are your current stats:')
             cursor.execute("""
                         SELECT
