@@ -177,8 +177,8 @@ def rock_paper_scissor(player_id, game_id: int):
     Best out of 5
     """
     choices = ['Rock', 'Paper', 'Scissor']
-    player_move_value, computer_move_value = None
-    player_points, computer_points = 0
+    player_move_value, computer_move_value = None, None
+    player_points, computer_points = 0, 0
 
     i = 5
     while i >= 0:
