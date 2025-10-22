@@ -292,13 +292,45 @@ def dice_roller(player_id, game_id: int):
     print('This games simulates rolling a dice')
     print('Whoever rolls the higher value, wins the round')
     print('Whoever wins the most rounds, wins the game!')
-    player_points = random.randint(2, 12)
-    computer_points = random.randint(2, 12)
+    input('Press enter to start\n')
     player_wins, computer_wins = 0, 0
 
+    game_round = 1
     i = 6
     while i > 0:
-        pass
+        player_points = random.randint(2, 12)
+        computer_points = random.randint(2, 12)
+        print(f'\nRound {game_round}')
+        print(f'Player got {player_points}')
+        print(f'Computer got {computer_points}')
+
+        if player_points > computer_points:
+            print('Player won this round!')
+            player_wins += 1
+        
+        elif player_points < computer_points:
+            print('Computer won this round!')
+            computer_wins += 1
+        
+        else:
+            print('It\'s a tie! No points were given!')
+        
+        time.sleep(6)
+        i -= 1
+        game_round += 1
+    
+    print(f'\nHere are the results:')
+    print(f'Total player wins: {player_wins}')
+    print(f'Total computer wins: {computer_wins}')
+
+    if player_wins > computer_wins:
+        print('Player wins the game!')
+    
+    elif player_wins < computer_wins:
+        print('Computer wins the game!')
+    
+    else:
+        print('It\'s a tie!')
 
 def math_quiz(player_id, game_id: int):
     """
