@@ -57,7 +57,7 @@ def login():
             cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
             result = cursor.fetchone()
 
-            if result == None:
+            if result is None:
                 print('No record found with your player name')
                 print('You must be a new player!')
                 print(f'Welcome, {player_name}!')
@@ -111,7 +111,7 @@ def menu(player_id):
             time.sleep(3)
             login()
 
-def number_guessing(player_id, game_id: int):
+def number_guessing(player_id, game_id: int): # Refactor using with keyword
     """
     Game will keep looping until the player gets the number
     Number of tries will be tracked and sent to the database
@@ -158,7 +158,7 @@ def number_guessing(player_id, game_id: int):
 
     # If result is None, it is possible the player already exists but hasn't played any
     # Therefore, if the result is None, insert data to database
-    if result == None:
+    if result is None:
         cursor.execute('INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);', (player_id, game_id, tries, tries))
         connection.commit()
 
@@ -252,7 +252,7 @@ def rock_paper_scissor(player_id, game_id: int):
             cursor.execute('SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s', (player_id, game_id))
             result = cursor.fetchone()
 
-            if result == None:
+            if result is None:
                 print(f'\n{player_points} points is your new personal best!')
                 time.sleep(5)
 
