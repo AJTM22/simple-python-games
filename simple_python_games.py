@@ -289,7 +289,6 @@ def dice_roller(player_id, game_id: int):
     """
     clear_screen()
     print('Welcome to the Dice Roller Game!')
-    print('This games simulates rolling a dice')
     print('Whoever rolls the higher value, wins the round')
     print('Whoever wins the most rounds, wins the game!')
     input('Press enter to start\n')
@@ -298,6 +297,7 @@ def dice_roller(player_id, game_id: int):
     game_round = 1
     i = 6
     while i > 0:
+        print('\nDice is rolling...')
         player_points = random.randint(2, 12)
         computer_points = random.randint(2, 12)
         print(f'\nRound {game_round}')
@@ -319,32 +319,51 @@ def dice_roller(player_id, game_id: int):
         i -= 1
         game_round += 1
     
-    print(f'\nHere are the results:')
+    print(f'\nHere are the results of the game:')
     print(f'Total player wins: {player_wins}')
     print(f'Total computer wins: {computer_wins}')
 
     if player_wins > computer_wins:
-        print('Player wins the game!')
+        print('Congratulations! You won!')
     
     elif player_wins < computer_wins:
-        print('Computer wins the game!')
+        print('Computer wins the game. Better luck next time!')
     
     else:
         print('It\'s a tie!')
 
     with get_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute('SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s', (player_id, game_id))
+            query = 'SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;'
+            cursor.execute(query, (player_id, game_id))
             result = cursor.fetchone()
 
-            if result is None: # TODO: Continue the logic for the database connection
-                pass
+            if result is None:
+                print(f'\n{player_wins} points is your new personal best!')
+                query = 'INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
+                cursor.execute(query, (player_id, game_id, player_wins, player_wins))
+                time.sleep(3)
 
             else:
                 best_score = result[0]
                 times_played = result[1]
 
+                if player_wins > best_score:
+                    print(f'\n{player_points} points is your new personal best!')
+                    query = 'UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (player_wins, player_wins, times_played + 1, player_id, game_id))
+                    time.sleep(3)
+
+                else:
+                    print(f'\nTry to beat your personal best: {best_score} points!')
+                    query = 'UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (player_wins, times_played + 1, player_id, game_id))
+                    time.sleep(3)
+
             connection.commit()
+    
+    play = input('\nDo you want to play again? (y/n): ')
+    dice_roller(player_id, game_id) if play.lower() == 'y' else menu(player_id)
 
 def math_quiz(player_id, game_id: int):
     """
