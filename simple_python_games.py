@@ -337,7 +337,14 @@ def dice_roller(player_id, game_id: int):
             cursor.execute('SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s', (player_id, game_id))
             result = cursor.fetchone()
 
-            pass
+            if result is None: # TODO: Continue the logic for the database connection
+                pass
+
+            else:
+                best_score = result[0]
+                times_played = result[1]
+
+            connection.commit()
 
 def math_quiz(player_id, game_id: int):
     """
