@@ -349,7 +349,7 @@ def dice_roller(player_id, game_id: int):
                 times_played = result[1]
 
                 if player_wins > best_score:
-                    print(f'\n{player_points} points is your new personal best!')
+                    print(f'\n{player_wins} points is your new personal best!')
                     query = 'UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
                     cursor.execute(query, (player_wins, player_wins, times_played + 1, player_id, game_id))
                     time.sleep(3)
