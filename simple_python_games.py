@@ -332,6 +332,13 @@ def dice_roller(player_id, game_id: int):
     else:
         print('It\'s a tie!')
 
+    with get_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s', (player_id, game_id))
+            result = cursor.fetchone()
+
+            pass
+
 def math_quiz(player_id, game_id: int):
     """
     
