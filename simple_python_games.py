@@ -282,10 +282,23 @@ def rock_paper_scissor(player_id, game_id: int):
 
 def dice_roller(player_id, game_id: int):
     """
-    
+    Simulates dice rolling
+    The values are 2 - 12
+    Whoever has the highest value, wins the round
+    Best out of 6
     """
     clear_screen()
-    pass
+    print('Welcome to the Dice Roller Game!')
+    print('This games simulates rolling a dice')
+    print('Whoever rolls the higher value, wins the round')
+    print('Whoever wins the most rounds, wins the game!')
+    player_points = random.randint(2, 12)
+    computer_points = random.randint(2, 12)
+    player_wins, computer_wins = 0, 0
+
+    i = 6
+    while i > 0:
+        pass
 
 def math_quiz(player_id, game_id: int):
     """
