@@ -54,16 +54,19 @@ def login():
     with get_connection() as connection:
         with connection.cursor() as cursor:
             player_name = input('Enter your player name: ')
-            cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
+            query = "SELECT player_id FROM players WHERE player_name = %s;"
+            cursor.execute(query, (player_name,))
             result = cursor.fetchone()
 
             if result is None:
                 print('No record found with your player name')
                 print('You must be a new player!')
                 print(f'Welcome, {player_name}!')
-                cursor.execute("INSERT INTO players(player_name) VALUES(%s);", (player_name,))
+                query = "INSERT INTO players(player_name) VALUES(%s);"
+                cursor.execute(query, (player_name,))
                 connection.commit()
-                cursor.execute("SELECT player_id FROM players WHERE player_name = %s;", (player_name,))
+                query = "SELECT player_id FROM players WHERE player_name = %s;"
+                cursor.execute(query, (player_name,))
                 result = cursor.fetchone()
                 player_id = result[0]
                 time.sleep(3)
@@ -107,7 +110,7 @@ def menu(player_id):
             time.sleep(10)
             menu(player_id)
         case _:
-            print('Game not found. Try again after a few seconds')
+            print('That is not an available option. Try again after a few seconds')
             time.sleep(3)
             login()
 
@@ -153,13 +156,15 @@ def number_guessing(player_id, game_id: int): # Refactor using with keyword
     connection = get_connection()
     cursor = connection.cursor()
 
-    cursor.execute('SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;', (player_id, game_id))
+    query = 'SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;'
+    cursor.execute(query, (player_id, game_id))
     result = cursor.fetchone()
 
     # If result is None, it is possible the player already exists but hasn't played any
     # Therefore, if the result is None, insert data to database
     if result is None:
-        cursor.execute('INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);', (player_id, game_id, tries, tries))
+        query = 'INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
+        cursor.execute(query, (player_id, game_id, tries, tries))
         connection.commit()
 
     else:
@@ -168,11 +173,13 @@ def number_guessing(player_id, game_id: int): # Refactor using with keyword
 
         if best_score > tries:
             print('Congratulations! You\'ve beaten your personal best!')
-            cursor.execute('UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;', (tries, tries, times_played + 1, player_id, game_id))
+            query = 'UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+            cursor.execute(query, (tries, tries, times_played + 1, player_id, game_id))
             connection.commit()
 
         else:
-            cursor.execute('UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;', (tries, times_played + 1, player_id, game_id))
+            query = 'UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+            cursor.execute(query, (tries, times_played + 1, player_id, game_id))
             connection.commit()
     
     connection.close()
@@ -249,14 +256,16 @@ def rock_paper_scissor(player_id, game_id: int):
     
     with get_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute('SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s', (player_id, game_id))
+            query = 'SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;'
+            cursor.execute(query, (player_id, game_id))
             result = cursor.fetchone()
 
             if result is None:
                 print(f'\n{player_points} points is your new personal best!')
                 time.sleep(5)
 
-                cursor.execute('INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1)', (player_id, game_id, player_points, player_points))
+                query = 'INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
+                cursor.execute(query, (player_id, game_id, player_points, player_points))
                 connection.commit()
 
             else:
@@ -267,14 +276,16 @@ def rock_paper_scissor(player_id, game_id: int):
                     print(f'\n{player_points} points is your new personal best!')
                     time.sleep(5)
 
-                    cursor.execute('UPDATE player_games SET best_score = %s, latest_score = %s, and times_played = %s WHERE player_id = %s AND game_id = %s', (player_points, player_points, times_played + 1, player_id, game_id))
+                    query = 'UPDATE player_games SET best_score = %s, latest_score = %s, and times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (player_points, player_points, times_played + 1, player_id, game_id))
                     connection.commit()
                     
                 else:
                     print(f'\nTry to beat your personal best: {best_score} points!')
                     time.sleep(5)
 
-                    cursor.execute('UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s', (player_points, times_played + 1, player_id, game_id))
+                    query = 'UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (player_points, times_played + 1, player_id, game_id))
                     connection.commit()
 
     play = input('\nDo you want to play again? (y/n): ')
