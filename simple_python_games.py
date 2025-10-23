@@ -114,7 +114,7 @@ def menu(player_id):
             time.sleep(3)
             login()
 
-def number_guessing(player_id, game_id: int): # Refactor using with keyword
+def number_guessing(player_id, game_id: int):
     """
     Game will keep looping until the player gets the number
     Number of tries will be tracked and sent to the database
@@ -151,41 +151,37 @@ def number_guessing(player_id, game_id: int): # Refactor using with keyword
             
             tries += 1
     
-    print(f'You took {tries} to guess the number!')
+    print(f'\nYou took {tries} guesses to get the number!')
     
-    connection = get_connection()
-    cursor = connection.cursor()
+    with get_connection() as connection:
+        with connection.cursor() as cursor:
+            query = 'SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;'
+            cursor.execute(query, (player_id, game_id))
+            result = cursor.fetchone()
 
-    query = 'SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;'
-    cursor.execute(query, (player_id, game_id))
-    result = cursor.fetchone()
+            # If result is None, it is possible the player already exists but hasn't played any
+            # Therefore, if the result is None, insert data to database
+            if result is None:
+                query = 'INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
+                cursor.execute(query, (player_id, game_id, tries, tries))
 
-    # If result is None, it is possible the player already exists but hasn't played any
-    # Therefore, if the result is None, insert data to database
-    if result is None:
-        query = 'INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
-        cursor.execute(query, (player_id, game_id, tries, tries))
-        connection.commit()
+            else:
+                best_score = result[0]
+                times_played = result[1]
 
-    else:
-        best_score = result[0]
-        times_played = result[1]
+                if best_score > tries:
+                    print('Congratulations! You\'ve beaten your personal best!')
+                    query = 'UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (tries, tries, times_played + 1, player_id, game_id))
 
-        if best_score > tries:
-            print('Congratulations! You\'ve beaten your personal best!')
-            query = 'UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
-            cursor.execute(query, (tries, tries, times_played + 1, player_id, game_id))
+                else:
+                    print(f'Try to beat your personal best: {best_score} guesses!')
+                    query = 'UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (tries, times_played + 1, player_id, game_id))
+                
             connection.commit()
-
-        else:
-            query = 'UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
-            cursor.execute(query, (tries, times_played + 1, player_id, game_id))
-            connection.commit()
     
-    connection.close()
-    cursor.close()
-    
-    play = input('Do you want to play again? (y/n): ')
+    play = input('\nDo you want to play again? (y/n): ')
     number_guessing(player_id, game_id) if play.lower() == 'y' else menu(player_id)
 
 def rock_paper_scissor(player_id, game_id: int):
