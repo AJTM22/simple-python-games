@@ -102,7 +102,8 @@ def number_guessing(player_id, game_id: int):
     """
     clear_screen()
     print('Welcome to the Number Guessing Game!')
-    random_number = random.randint(1, 100 + 1)
+    print('Try to guess the number from 1 to 100!')
+    random_number = random.randint(1, 100)
     tries = 1
     random_number_guessed = False
 
