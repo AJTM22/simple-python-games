@@ -286,7 +286,9 @@ def dice_roller(player_id, game_id: int):
         player_points = random.randint(2, 12)
         computer_points = random.randint(2, 12)
         print(f'\nRound {game_round}')
+        time.sleep(2)
         print(f'Player got {player_points}')
+        time.sleep(2)
         print(f'Computer got {computer_points}')
 
         if player_points > computer_points:
