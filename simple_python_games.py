@@ -1,4 +1,4 @@
-import random, time, psycopg, os, platform
+import random, time, psycopg, os, platform, sys
 from dotenv import load_dotenv
 from tabulate import tabulate
 
@@ -54,7 +54,7 @@ def login():
 
     menu(player_id)
 
-def menu(player_id): # TODO: Refactor to include graceful exit
+def menu(player_id):
     """
     Serves as the main menu of the program
     It displays the available games the player can play
@@ -63,7 +63,7 @@ def menu(player_id): # TODO: Refactor to include graceful exit
     clear_screen()
     print('Welcome to my simple python games program!')
     print('Here are the available options:')
-    print('1. Number guessing\n2. Rock paper scissor\n3. Dice roller\n4. Math quiz\n5. Even or Odd\n6. Display player stats')
+    print('1. Number guessing\n2. Rock paper scissor\n3. Dice roller\n4. Math quiz\n5. Even or Odd\n6. Display player stats\n7. Exit the program')
     game = input('Choose the number of the available option: ')
 
     match game:
@@ -81,6 +81,11 @@ def menu(player_id): # TODO: Refactor to include graceful exit
             display_stats(player_id)
             time.sleep(10)
             menu(player_id)
+        case '7':
+            clear_screen()
+            print('Thank you for playing the game!')
+            time.sleep(3)
+            sys.exit()
         case _:
             print('That is not an available option. Try again after a few seconds')
             time.sleep(3)
