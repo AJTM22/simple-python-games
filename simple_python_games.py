@@ -363,7 +363,7 @@ def even_or_odd(player_id, game_id: int):
     clear_screen()
     pass
 
-def display_stats(player_id = None, player_name = None):
+def display_stats(player_id = None):
     """
     Takes in the player name or player id
     Display the stats of the player
