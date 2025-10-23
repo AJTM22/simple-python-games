@@ -17,7 +17,7 @@ def get_connection():
         port=int(os.getenv("DB_PORT"))
     )
 
-def display_stats(player_id = None, player_name = None):
+def display_stats(player_id = None, player_name = None): # TODO: Refactor by moving to bottom
     """
     Takes in the player name or player id
     Display the stats of the player
@@ -82,7 +82,7 @@ def login():
 
     menu(player_id)
 
-def menu(player_id):
+def menu(player_id): # TODO: Refactor to include graceful exit
     """
     Serves as the main menu of the program
     It displays the available games the player can play
