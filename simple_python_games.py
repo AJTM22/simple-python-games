@@ -1,6 +1,7 @@
 import random, time, psycopg, os, platform, sys
 from dotenv import load_dotenv
 from tabulate import tabulate
+from inputimeout import inputimeout, TimeoutOccurred
 
 def clear_screen():
     command = 'cls' if platform.system() == 'Windows' else 'clear'
@@ -374,18 +375,46 @@ def even_or_odd(player_id, game_id: int):
     game_loop = True
     sleep_timer = 10
     while game_loop:
-        random_number = random.randint(1, 1000)
-
         if score > 5 and sleep_timer > 2:
             sleep_timer -= 1
+            random_number = random.randint(1000, 10**6)
         
         elif score == 3:
-            sleep_timer = 7
+            sleep_timer = 8
+            random_number = random.randint(10, 50)
         
         elif score == 5:
             sleep_timer = 5
+            random_number = random.randint(50, 1000)
         
-        pass
+        else:
+            random_number = random.randint(1, 10)
+
+            if sleep_timer == 2:
+                random_number = random.randint(1000, 10 ** 6)
+        
+        print()
+        print(random_number)
+        try:
+            answer = inputimeout(prompt = 'Even or Odd: ', timeout = sleep_timer)
+        except TimeoutOccurred:
+            print('Times up!')
+            time.sleep(2)
+            game_loop = False
+            continue
+
+        if random_number % 2 == 0 and answer.lower() == 'even':
+            score += 1
+        
+        elif random_number % 2 == 1 and answer.lower() == 'odd':
+            score += 1
+        
+        else:
+            print('Wrong answer!')
+            time.sleep(3)
+            game_loop = False
+    
+    pass # TODO: Database connection code
 
 def display_stats(player_id = None):
     """
