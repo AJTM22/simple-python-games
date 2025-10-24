@@ -364,7 +364,28 @@ def even_or_odd(player_id, game_id: int):
     
     """
     clear_screen()
-    pass
+    print('Welcome to the Even or Odd Game!')
+    print('Guess if the number is Even or Odd!')
+    print('You only have a set amount of time and it decreases every time you get it correctly!')
+    print('For added difficulty, type out the whole answer. Anything else ends the game!')
+    input('\nPress enter to play\n')
+    
+    score = 0
+    game_loop = True
+    sleep_timer = 10
+    while game_loop:
+        random_number = random.randint(1, 1000)
+
+        if score > 5 and sleep_timer > 2:
+            sleep_timer -= 1
+        
+        elif score == 3:
+            sleep_timer = 7
+        
+        elif score == 5:
+            sleep_timer = 5
+        
+        pass
 
 def display_stats(player_id = None):
     """
