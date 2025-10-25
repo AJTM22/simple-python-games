@@ -414,7 +414,25 @@ def even_or_odd(player_id, game_id: int):
             time.sleep(3)
             game_loop = False
     
-    pass # TODO: Database connection code
+    clear_screen()
+    print('Here are the results of the game:')
+    print(f'Total score: {score} points')
+    print(f'Lowest time achieved: {sleep_timer} seconds')
+    
+    # TODO: Database connection code
+    with get_connection() as connection:
+        with connection.cursor() as cursor:
+            query = 'SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;'
+            cursor.execute(query, (player_id, game_id))
+            result = cursor.fetchone()
+
+            if result is None:
+                pass
+
+            else:
+                pass
+
+            connection.commit()
 
 def display_stats(player_id = None):
     """
