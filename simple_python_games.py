@@ -390,7 +390,7 @@ def even_or_odd(player_id, game_id: int):
     score = 0
     game_loop = True
     sleep_timer = 10
-    while game_loop:
+    while game_loop: # Game loop logic
         if score > 5 and sleep_timer > 2:
             sleep_timer -= 1
             random_number = random.randint(1000, 10**6)
@@ -430,12 +430,13 @@ def even_or_odd(player_id, game_id: int):
             time.sleep(3)
             game_loop = False
     
+    # Display game results
     clear_screen()
     print('Here are the results of the game:')
     print(f'Total score: {score} points')
-    print(f'Lowest time achieved: {sleep_timer} seconds')
+    print(f'Lowest time achieved: {sleep_timer} seconds\n')
     
-    # TODO: Database connection code
+    # Database connection
     with get_connection() as connection:
         with connection.cursor() as cursor:
             query = 'SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;'
@@ -443,10 +444,26 @@ def even_or_odd(player_id, game_id: int):
             result = cursor.fetchone()
 
             if result is None:
-                pass
+                print(f'Your new personal best is {score} points!')
+                query = 'INSERT player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
+                cursor.execute(query, (player_id, game_id, score, score))
+                time.sleep(3)
 
             else:
-                pass
+                best_score = result[0]
+                times_played = result[1]
+
+                if score > best_score:
+                    print(f'Congratulations! Your new personal best is {score} points')
+                    query = 'UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (score, score, times_played + 1, player_id, game_id))
+                    time.sleep(3)
+                
+                else:
+                    print(f'Try to best your perosnal best: {best_score} point')
+                    query = 'UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s and game_id = %s;'
+                    cursor.execute(query, (score, times_played + 1, player_id, game_id))
+                    time.sleep(3)
 
             connection.commit()
     
