@@ -291,6 +291,7 @@ def dice_roller(player_id, game_id: int):
         print(f'Player got {player_points}')
         time.sleep(2)
         print(f'Computer got {computer_points}')
+        time.sleep(2)
 
         if player_points > computer_points:
             print('Player won this round!')
