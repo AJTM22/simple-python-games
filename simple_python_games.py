@@ -471,7 +471,7 @@ def even_or_odd(player_id, game_id: int):
     play = input('\nDo you want to play again> (y/n): ')
     even_or_odd(player_id, game_id) if play.lower() == 'y' else menu(player_id)
 
-def display_stats(player_id = None):
+def display_stats(player_id):
     """
     Takes in the player name or player id
     Display the stats of the player
