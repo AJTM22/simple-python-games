@@ -362,7 +362,23 @@ def math_quiz(player_id, game_id: int):
 
 def even_or_odd(player_id, game_id: int):
     """
-    
+    Function keeps track of the player's score
+
+    There are two ways for the player to lose the game:
+    - Wrong guess
+    - Went above sleep_timer
+
+    When the player makes a wrong guess, the game_loop variable will be False. Thus, ending the loop
+
+    For added difficulty, as long as the player is progressing, the sleep timer keeps decreasing
+    Once the player goes above the set sleep_timer, it will terminate the loop as well
+
+    It will then display the results of the game
+
+    After connecting to the database, it will try retrieve specific data from the database
+    If the result is None, it will insert the data into the database
+    Otherwise, compare the latest score to the player's best score to check whether to update the best_score or not
+    Latest score and times played will always be changed regardless of score
     """
     clear_screen()
     print('Welcome to the Even or Odd Game!')
