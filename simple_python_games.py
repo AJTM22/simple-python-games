@@ -445,7 +445,7 @@ def even_or_odd(player_id, game_id: int):
 
             if result is None:
                 print(f'Your new personal best is {score} points!')
-                query = 'INSERT player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
+                query = 'INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
                 cursor.execute(query, (player_id, game_id, score, score))
                 time.sleep(3)
 
