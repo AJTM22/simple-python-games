@@ -354,6 +354,20 @@ def dice_roller(player_id, game_id: int):
     play = input('\nDo you want to play again? (y/n): ')
     dice_roller(player_id, game_id) if play.lower() == 'y' else menu(player_id)
 
+def get_user_answer(sleep_timer):
+    try:
+        answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
+    except TimeoutOccurred:
+        print('Time\'s up!')
+        time.sleep(3)
+        return None, False
+    except ValueError:
+        print('Wrong answer!')
+        time.sleep(3)
+        return None, False
+    
+    return answer, True
+
 def math_quiz(player_id, game_id: int):
     """
     
@@ -383,65 +397,25 @@ def math_quiz(player_id, game_id: int):
 
         num1 = random.randint(1, 100)
         num2 = random.randint(1, 100)
-        operation = random.randint(1, 4)
+        operation = random.randint(1, 3)
 
         match operation:
             case 1: # Addition operation
                 total = num1 + num2
                 print(f'{num1} + {num2}')
-                try:
-                    answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
-                except TimeoutOccurred:
-                    print('Time\'s up!')
-                    game_loop = False
-                    time.sleep(3)
-                    continue
-                except ValueError:
-                    print('Wrong answer!')
-                    game_loop = False
-                    time.sleep(3)
-                    continue
-
-                if answer == total:
-                    score += 1
 
             case 2: # Subtraction operation
                 total = num1 - num2
                 print(f'{num1} - {num2}')
-                try:
-                    answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
-                except TimeoutOccurred:
-                    print('Time\'s up!')
-                    game_loop = False
-                    time.sleep(3)
-                    continue
-                except ValueError:
-                    print('Wrong answer!')
-                    game_loop = False
-                    time.sleep(3)
-                    continue
-
-                if answer == total:
-                    score += 1
 
             case 3: # Multiplication operation
                 total = num1 * num2
                 print(f'{num1} * {num2}')
-                try:
-                    answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
-                except TimeoutOccurred:
-                    print('Time\'s up!')
-                    game_loop = False
-                    time.sleep(3)
-                    continue
-                except ValueError:
-                    print('Wrong answer!')
-                    game_loop = False
-                    time.sleep(3)
-                    continue
+        
+        answer, game_loop = get_user_answer(sleep_timer)
 
-                if answer == total:
-                    score += 1
+        if answer == total and game_loop == True:
+            score += 1
 
     # Database connection
     with get_connection() as connection:
