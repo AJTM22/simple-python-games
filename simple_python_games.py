@@ -371,7 +371,7 @@ def get_user_answer(sleep_timer):
     
     return answer, True
 
-def math_quiz(player_id, game_id: int):
+def math_quiz(player_id, game_id: int): # TODO: Add documentation
     """
     
     """
