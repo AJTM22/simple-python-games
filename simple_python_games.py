@@ -423,7 +423,27 @@ def math_quiz(player_id, game_id: int):
     # Database connection
     with get_connection() as connection:
         with connection.cursor() as cursor:
-            pass
+            query = 'SELECT best_score, times_played FROM player_games WHERE player_id = %s AND game_id = %s;'
+            cursor.execute(query, (player_id, game_id))
+            result = cursor.fetchone()
+
+            if result is None:
+                pass
+
+            else:
+                best_score = result[0]
+                times_played = result[1]
+
+                if score > best_score:
+                    pass
+
+                else:
+                    pass
+            
+            connection.commit()
+    
+    play = input('\nDo you want to play again? (y/n): ')
+    math_quiz(player_id, game_id) if play.lower() == 'y' else menu(player_id)
 
 def even_or_odd(player_id, game_id: int):
     """
