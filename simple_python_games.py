@@ -370,7 +370,78 @@ def math_quiz(player_id, game_id: int):
     sleep_timer = 15
     game_loop = True
     while game_loop: # Game loop logic
-        pass
+        print()
+
+        if score > 5 and sleep_timer > 3:
+            sleep_timer -= 1
+        
+        elif score == 5:
+            sleep_timer = 7
+
+        elif score == 3:
+            sleep_timer = 10
+
+        num1 = random.randint(1, 100)
+        num2 = random.randint(1, 100)
+        operation = random.randint(1, 4)
+
+        match operation:
+            case 1: # Addition operation
+                total = num1 + num2
+                print(f'{num1} + {num2}')
+                try:
+                    answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
+                except TimeoutOccurred:
+                    print('Time\'s up!')
+                    game_loop = False
+                    time.sleep(3)
+                    continue
+                except ValueError:
+                    print('Wrong answer!')
+                    game_loop = False
+                    time.sleep(3)
+                    continue
+
+                if answer == total:
+                    score += 1
+
+            case 2: # Subtraction operation
+                total = num1 - num2
+                print(f'{num1} - {num2}')
+                try:
+                    answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
+                except TimeoutOccurred:
+                    print('Time\'s up!')
+                    game_loop = False
+                    time.sleep(3)
+                    continue
+                except ValueError:
+                    print('Wrong answer!')
+                    game_loop = False
+                    time.sleep(3)
+                    continue
+
+                if answer == total:
+                    score += 1
+
+            case 3: # Multiplication operation
+                total = num1 * num2
+                print(f'{num1} * {num2}')
+                try:
+                    answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
+                except TimeoutOccurred:
+                    print('Time\'s up!')
+                    game_loop = False
+                    time.sleep(3)
+                    continue
+                except ValueError:
+                    print('Wrong answer!')
+                    game_loop = False
+                    time.sleep(3)
+                    continue
+
+                if answer == total:
+                    score += 1
 
     # Database connection
     with get_connection() as connection:
