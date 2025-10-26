@@ -419,6 +419,11 @@ def math_quiz(player_id, game_id: int):
 
         if answer == total and game_loop == True:
             score += 1
+    
+    clear_screen()
+    print('Here are the results of the game:')
+    print(f'Total score: {score} points')
+    print(f'Lowest time achieved: {sleep_timer} seconds before game ends\n')
 
     # Database connection
     with get_connection() as connection:
@@ -428,17 +433,26 @@ def math_quiz(player_id, game_id: int):
             result = cursor.fetchone()
 
             if result is None:
-                pass
+                print(f'Your new personal best is {score} points!')
+                query = 'INSERT INTO player_games(player_id, game_id, best_score, latest_score, times_played) VALUES(%s, %s, %s, %s, 1);'
+                cursor.execute(query, (player_id, game_id, score, score))
+                time.sleep(3)
 
             else:
                 best_score = result[0]
                 times_played = result[1]
 
                 if score > best_score:
-                    pass
+                    print(f'Congratulations! Your new personal best is {score} points!')
+                    query = 'UPDATE player_games SET best_score = %s, latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (score, score, times_played + 1, player_id, game_id))
+                    time.sleep(3)
 
                 else:
-                    pass
+                    print(f'Try to beat your personal best score: {best_score} points!')
+                    query = 'UPDATE player_games SET latest_score = %s, times_played = %s WHERE player_id = %s AND game_id = %s;'
+                    cursor.execute(query, (score, times_played + 1, player_id, game_id))
+                    time.sleep(3)
             
             connection.commit()
     
@@ -519,7 +533,7 @@ def even_or_odd(player_id, game_id: int):
     clear_screen()
     print('Here are the results of the game:')
     print(f'Total score: {score} points')
-    print(f'Lowest time achieved: {sleep_timer} seconds\n')
+    print(f'Lowest time achieved: {sleep_timer} seconds before the game ends\n')
     
     # Database connection
     with get_connection() as connection:
