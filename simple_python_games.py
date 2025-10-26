@@ -24,6 +24,7 @@ def login():
     If new user, create new user in the database and add all data specific to the player
     Else, enter player name and display their current records
     """
+    clear_screen()
     with get_connection() as connection:
         with connection.cursor() as cursor:
             player_name = input('Enter your player name: ')
