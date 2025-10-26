@@ -359,7 +359,23 @@ def math_quiz(player_id, game_id: int):
     
     """
     clear_screen()
-    pass
+    print('Welcome to the Math Quiz Game!')
+    print('You will enter the result on the operation of 2 numbers (e.g 1 + 1 = ?)')
+    print('The range of the numbers will be 1 to 100')
+    print('The arithmetic operations will be randomized!')
+    print('To make things difficult, you only have a set of time to solve the problem!')
+    input('\nPress enter to play\n')
+
+    score = 0
+    sleep_timer = 15
+    game_loop = True
+    while game_loop: # Game loop logic
+        pass
+
+    # Database connection
+    with get_connection() as connection:
+        with connection.cursor() as cursor:
+            pass
 
 def even_or_odd(player_id, game_id: int):
     """
