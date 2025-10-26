@@ -51,6 +51,8 @@ def login():
             else:
                 player_id = result[0]
                 print(f'Welcome back, {player_name}!')
+                time.sleep(3)
+                clear_screen()
                 display_stats(player_id)
                 time.sleep(10)
 
