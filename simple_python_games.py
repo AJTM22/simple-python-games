@@ -114,12 +114,7 @@ def menu(player_id):
 
 def number_guessing(player_id, game_id: int):
     """
-    Game will keep looping until the player gets the number
-    Number of tries will be tracked and sent to the database
-    Hints will be displayed to allow the user to get near the number (Higher or lower)
     
-    If the player beats their personal record, a congratulatory remark will be displayed
-    If not, the number of tries will be displayed
     """
     clear_screen()
     print('Welcome to the Number Guessing Game!')
@@ -185,10 +180,7 @@ def number_guessing(player_id, game_id: int):
 
 def rock_paper_scissor(player_id, game_id: int):
     """
-    Simulates a player vs computer
-    Player chooses their move
-    Computer choose afterwards
-    Best out of 5
+    
     """
     choices = ['Rock', 'Paper', 'Scissor']
     player_move_value, computer_move_value = None, None
@@ -288,10 +280,7 @@ def rock_paper_scissor(player_id, game_id: int):
 
 def dice_roller(player_id, game_id: int):
     """
-    Simulates dice rolling
-    The values are 2 - 12
-    Whoever has the highest value, wins the round
-    Best out of 6
+    
     """
     clear_screen()
     print('Welcome to the Dice Roller Game!')
@@ -375,6 +364,9 @@ def dice_roller(player_id, game_id: int):
     dice_roller(player_id, game_id) if play.lower() == 'y' else menu(player_id)
 
 def get_user_answer(sleep_timer):
+    """
+    
+    """
     try:
         answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
     except TimeoutOccurred:
@@ -608,8 +600,7 @@ def even_or_odd(player_id, game_id: int):
 
 def display_stats(player_id):
     """
-    Takes in the player name or player id
-    Display the stats of the player
+    
     """
     with get_connection() as connection:
         with connection.cursor() as cursor:
