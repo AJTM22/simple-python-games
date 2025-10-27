@@ -44,9 +44,6 @@ def login():
                 result = cursor.fetchone()
                 player_id = result[0]
                 time.sleep(3)
-                connection.close()
-                cursor.close()
-                menu(player_id)
 
             else:
                 player_id = result[0]
