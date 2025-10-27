@@ -368,9 +368,29 @@ def get_user_answer(sleep_timer):
     
     return answer, True
 
-def math_quiz(player_id, game_id: int): # TODO: Add documentation
+def math_quiz(player_id, game_id: int):
     """
-    
+    Displays the instructions of the game and waits for the player to press enter to start
+
+    The player will be given random numbers from 1 to 100
+
+    The arithmetic operations are only addition, subtraction and multiplication, indicated by 1 to 3 respectively
+
+    For comparison, the 'total' variable will hold the actual answer for comparison
+
+    It then uses the get_user_answer function to get the user's answer and state of the game_loop variable
+
+    There are two ways for the player to lose the game:
+    - Providing the wrong answer
+    - Timer runs out
+    Either one of these will result in the game_loop variable becoming False. Thus, ending the game loop
+
+    It then displays the results of the game
+
+    It then connects to the database to insert or update the player's stats
+
+    Lastly, it asks the user if they want to play again
+    Any input other than 'y' will result in returning to the menu
     """
     clear_screen()
     print('Welcome to the Math Quiz Game!')
