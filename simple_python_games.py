@@ -4,10 +4,22 @@ from tabulate import tabulate
 from inputimeout import inputimeout, TimeoutOccurred
 
 def clear_screen():
+    """
+    Clears the screen of the terminal window
+
+    The command depends on what is the OS of the user running the script
+    """
     command = 'cls' if platform.system() == 'Windows' else 'clear'
     os.system(command)
 
 def get_connection():
+    """
+    Loads the environment variables to be used for the database
+
+    It avoids explicitly stating who has access to the database
+
+    Since the database used is PostgreSQL, the variables in psycopg.connect are the ones asked when logging into the PSQL terminal
+    """
     load_dotenv()
 
     return psycopg.connect(
@@ -20,9 +32,15 @@ def get_connection():
 
 def login():
     """
-    Asks the user if they are a new player or a returning player
-    If new user, create new user in the database and add all data specific to the player
-    Else, enter player name and display their current records
+    Asks the player's name
+
+    Query to get the player's id in the database
+
+    If the result is None, it creates a new player in the database and queries to retrieve the player's id to be used by other functions
+
+    Else, it welcomes the returning player and displays their stats for 10 seconds
+
+    It then goes to the menu
     """
     clear_screen()
     with get_connection() as connection:
