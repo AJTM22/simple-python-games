@@ -75,9 +75,11 @@ def login():
 
 def menu(player_id):
     """
-    Serves as the main menu of the program
-    It displays the available games the player can play
-    Depending on the choice, the player will be redirected to the game
+    Displays the available options of the program
+
+    Redirects the player to the option of their choosing
+
+    If the player enters anything outside of those options, a timeout will play and will be redirected to the menu
     """
     clear_screen()
     print('Welcome to my simple python games program!')
@@ -108,7 +110,7 @@ def menu(player_id):
         case _:
             print('That is not an available option. Try again after a few seconds')
             time.sleep(3)
-            login()
+            menu(player_id)
 
 def number_guessing(player_id, game_id: int):
     """
