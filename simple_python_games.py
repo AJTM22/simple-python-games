@@ -114,7 +114,21 @@ def menu(player_id):
 
 def number_guessing(player_id, game_id: int):
     """
-    
+    Generates a random number from 1 to 100
+
+    The player will have to guess the number to stop the loop
+
+    Hints will be displayed to guide the player towards the number
+
+    It tracks the number of tries the player takes to guess the number. The number of tries will be sent to the database
+
+    If the player hasn't played the game yet, the data will be inserted into the database
+
+    Else, the number of tries will be compared to their best score. The best score will be updated if the number of tries is lower than the best score
+
+    Afterwards, it asks the player if they want to play again
+
+    Any input aside from 'y' will result in returning to menu
     """
     clear_screen()
     print('Welcome to the Number Guessing Game!')
