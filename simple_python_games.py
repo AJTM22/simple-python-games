@@ -294,7 +294,29 @@ def rock_paper_scissor(player_id, game_id: int):
 
 def dice_roller(player_id, game_id: int):
     """
-    
+    Simulates dice rolling
+
+    The player's and computer's points will randomly chosen from 2 to 12, since the lowest value of a die is 1 and the highest value of a die is 6
+
+    Keeps track of the player's wins and computer's wins
+
+    Whoever has the most wins in 6 rounds, wins the game
+
+    It then establishes a connection to the database
+
+    Queries the best score and times played of the player
+
+    If the result returns None, then it inserts the data into the database
+
+    Otherwise, it compares the best score of the player to their latest score in the game
+
+    If the latest score is greater than the best score, it updates the best score in the database alongside the latest score and times played
+
+    Else, it only updates the latest score and times played in the database
+
+    Lastly, it asks the player whether they want to play again
+
+    Any input other than 'y' will return the player to the menu
     """
     clear_screen()
     print('Welcome to the Dice Roller Game!')
