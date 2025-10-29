@@ -645,7 +645,17 @@ def even_or_odd(player_id, game_id: int):
 
 def display_stats(player_id):
     """
-    
+    The purpose is to display the player's current stats
+
+    Establishes a connection to the database and uses a cursor to execute the query
+
+    The query is an inner join on every table in the database
+
+    Joins the game name, best score, latest score, and times played
+
+    Filters it based on the player's id. The player's id is a parameter received from the login function and further passed on to other functions to track that specific player's data
+
+    Makes use of the tabulate module for an easy display of the player's stats
     """
     with get_connection() as connection:
         with connection.cursor() as cursor:
@@ -670,4 +680,4 @@ def display_stats(player_id):
             player_data = cursor.fetchall()
             print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
 
-login() # TODO: Fix documentation # TODO: Create a requirements.txt # TODO: Modularize the games
+login() # TODO: Create a requirements.txt # TODO: Modularize the games
