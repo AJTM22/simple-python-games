@@ -680,4 +680,4 @@ def display_stats(player_id):
             player_data = cursor.fetchall()
             print(tabulate(player_data, headers = headers, tablefmt = 'grid'))
 
-login() # TODO: Create a requirements.txt # TODO: Modularize the games
+login() # TODO: Modularize the games
