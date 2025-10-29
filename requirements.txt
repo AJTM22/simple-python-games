@@ -1,0 +1,5 @@
+psycopg
+psycopg[binary]
+python-dotenv
+tabulate
+inputimeout
