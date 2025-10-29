@@ -401,7 +401,16 @@ def dice_roller(player_id, game_id: int):
 
 def get_user_answer(sleep_timer):
     """
-    
+    Gets the player's answer with error handling
+
+    First possible error: TimeoutOccurred
+    If the sleep timer runs out before the player gets to answer, it displays a time's up message and returns None, False to be stored on the answer and game_loop variable
+
+    Second possible error: ValueError
+    Since the input of the user is converted to integer using the int function, it is to be considered that the player may mess up the answer intentionally or unintentionally
+    When that happens, it displays a wrong answer message and returns None and False to the answer and game_loop variables respectively
+
+    If no error occurs, the answer and True values will be passed to the answer and game_loop variables. The answer and game_loop variables will be further checked in the math_quiz function
     """
     try:
         answer = int(inputimeout(prompt = 'Enter your answer: ', timeout = sleep_timer))
