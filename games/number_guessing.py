@@ -1,8 +1,3 @@
-import random
-from utils.clear_screen import clear_screen
-from utils.database_connection import get_connection
-from utils.menu import menu
-
 def number_guessing(player_id, game_id: int):
     """
     Generates a random number from 1 to 100
@@ -21,6 +16,11 @@ def number_guessing(player_id, game_id: int):
 
     Any input aside from 'y' will result in returning to menu
     """
+    import random
+    from utils.clear_screen import clear_screen
+    from utils.database_connection import get_connection
+    from utils.menu import menu
+
     clear_screen()
     print('Welcome to the Number Guessing Game!')
     print('Try to guess the number from 1 to 100!')

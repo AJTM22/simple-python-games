@@ -1,8 +1,3 @@
-import random, time
-from utils.clear_screen import clear_screen
-from utils.database_connection import get_connection
-from utils.menu import menu
-
 def dice_roller(player_id, game_id: int):
     """
     Simulates dice rolling
@@ -29,6 +24,11 @@ def dice_roller(player_id, game_id: int):
 
     Any input other than 'y' will return the player to the menu
     """
+    import random, time
+    from utils.clear_screen import clear_screen
+    from utils.database_connection import get_connection
+    from utils.menu import menu
+    
     clear_screen()
     print('Welcome to the Dice Roller Game!')
     print('Whoever rolls the higher value, wins the round')

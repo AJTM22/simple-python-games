@@ -1,8 +1,5 @@
 from inputimeout import inputimeout, TimeoutOccurred
 import time, random
-from utils.clear_screen import clear_screen
-from utils.database_connection import get_connection
-from utils.menu import menu
 
 def get_user_answer(sleep_timer):
     """
@@ -54,6 +51,9 @@ def math_quiz(player_id, game_id: int):
     Lastly, it asks the user if they want to play again
     Any input other than 'y' will result in returning to the menu
     """
+    from utils.clear_screen import clear_screen
+    from utils.database_connection import get_connection
+    from utils.menu import menu
     clear_screen()
     print('Welcome to the Math Quiz Game!')
     print('You will enter the result on the operation of 2 numbers (e.g 1 + 1 = ?)')

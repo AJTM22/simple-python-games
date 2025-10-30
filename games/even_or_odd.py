@@ -1,9 +1,3 @@
-import random, time
-from inputimeout import inputimeout, TimeoutOccurred
-from utils.clear_screen import clear_screen
-from utils.database_connection import get_connection
-from utils.menu import menu
-
 def even_or_odd(player_id, game_id: int):
     """
     Function keeps track of the player's score
@@ -24,6 +18,12 @@ def even_or_odd(player_id, game_id: int):
     Otherwise, compare the latest score to the player's best score to check whether to update the best_score or not
     Latest score and times played will always be changed regardless of score
     """
+    import random, time
+    from inputimeout import inputimeout, TimeoutOccurred
+    from utils.clear_screen import clear_screen
+    from utils.database_connection import get_connection
+    from utils.menu import menu
+    
     clear_screen()
     print('Welcome to the Even or Odd Game!')
     print('Guess if the number is Even or Odd!')

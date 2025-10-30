@@ -1,12 +1,12 @@
-import random, time
-from utils.clear_screen import clear_screen
-from utils.database_connection import get_connection
-from utils.menu import menu
-
 def rock_paper_scissor(player_id, game_id: int):
     """
     
     """
+    import random, time
+    from utils.clear_screen import clear_screen
+    from utils.database_connection import get_connection
+    from utils.menu import menu
+
     choices = ['Rock', 'Paper', 'Scissor']
     player_move_value, computer_move_value = None, None
     player_points, computer_points = 0, 0
