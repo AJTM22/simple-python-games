@@ -1,4 +1,11 @@
 import time, sys
+from utils.clear_screen import clear_screen
+from games.number_guessing import number_guessing
+from games.rock_paper_scissor import rock_paper_scissor
+from games.dice_roller import dice_roller
+from games.math_quiz import math_quiz
+from games.even_or_odd import even_or_odd
+from utils.display_stats import display_stats
 # clear_screen, number_guessing, rock_paper_scissor, dice_roller, math_quiz, even_or_odd, display_stats
 
 def menu(player_id):
