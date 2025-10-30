@@ -1,5 +1,8 @@
 import random
-# clear_screen, get_connection, menu
+from utils.clear_screen import clear_screen
+from utils.database_connection import get_connection
+from utils.menu import menu
+
 def number_guessing(player_id, game_id: int):
     """
     Generates a random number from 1 to 100

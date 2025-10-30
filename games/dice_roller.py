@@ -1,5 +1,8 @@
 import random, time
-# clear_screen, get_connection, menu
+from utils.clear_screen import clear_screen
+from utils.database_connection import get_connection
+from utils.menu import menu
+
 def dice_roller(player_id, game_id: int):
     """
     Simulates dice rolling

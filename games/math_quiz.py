@@ -1,6 +1,8 @@
 from inputimeout import inputimeout, TimeoutOccurred
 import time, random
-# clear_screen, get_connection, menu
+from utils.clear_screen import clear_screen
+from utils.database_connection import get_connection
+from utils.menu import menu
 
 def get_user_answer(sleep_timer):
     """

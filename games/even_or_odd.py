@@ -1,6 +1,9 @@
 import random, time
 from inputimeout import inputimeout, TimeoutOccurred
-# clear_screen, get_connection, menu
+from utils.clear_screen import clear_screen
+from utils.database_connection import get_connection
+from utils.menu import menu
+
 def even_or_odd(player_id, game_id: int):
     """
     Function keeps track of the player's score
