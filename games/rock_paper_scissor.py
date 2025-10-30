@@ -1,6 +1,33 @@
 def rock_paper_scissor(player_id, game_id: int):
     """
-    
+    The player's points and computer's points will be tracked along the way
+
+    The player's move value will change depending on their move
+
+    The computer's move value will be chosen randomly
+
+    Using the values given by the player and computer, it will choose the index from the choices list and display their move in text
+
+    Given the arithmetic formula provided by ChatGPT/Copilot:
+    If the resulting computation results in 1, the point goes to the player
+    If the resulting computation results in 2, the point goes to the computer
+    Else, the points goes to neither
+
+    It then displays the results of the game and the corresponding remark based on the player's points
+
+    It then connects to the database and queries the best score and times played from the database
+
+    If the result is None, then the data is inserted into the database
+
+    Else, the best score is compared to the player's points
+
+    If the player's points are greater than the best score, the best score gets updated alongside the latest score, and times played
+
+    Else, only the latest score and times played are updated in the database
+
+    It then asks the user if they want to play again
+
+    Any input other than 'y' will result in going back to the menu
     """
     import random, time
     from utils.clear_screen import clear_screen
