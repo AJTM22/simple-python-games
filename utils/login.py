@@ -1,5 +1,8 @@
 import time
-# clear_screen, get_connection, display_stats, menu
+from utils.clear_screen import clear_screen
+from utils.database_connection import get_connection
+from utils.display_stats import display_stats
+from utils.menu import menu
 
 def login():
     """

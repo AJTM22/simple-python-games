@@ -1,5 +1,5 @@
 from tabulate import tabulate
-# get_connection
+from utils.database_connection import get_connection
 
 def display_stats(player_id):
     """
