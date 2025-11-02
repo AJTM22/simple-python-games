@@ -1,54 +1,42 @@
-****The goal is to recreate the number guessing game in the relational database course of freeCodeCamp using python****
+# Simple Python Games
+The goal of this project is to recreate and expand the number guessing game in the relational database course of freeCodeCamp using Python
+It serves as a practice of **Python**, **PostgreSQL**, **Git**, and **Github** by integrating them into this project
 
-**Games to be integrated:**
- - Number guessing game
- - Rock paper scissors
- - Dice roller
- - Math Quiz
- - Even or Odd
+## Project Structure
+simple-python-games
+    games
+        __init__.py
+        dice_roller.py
+        even_or_odd.py
+        math_quiz.py
+        number_guessing.py
+        rock_paper_scissor.py
+    
+    utils
+        __init__.py
+        clear_screen.py
+        database_connection.py
+        database.py
+        display_stats.py
+        login.py
+        menu.py
+    
+    .env
+    README.md
+    requirements.txt
+    simple_python_games.py
+    simple_python_games.sql
 
-**Number guessing game**
- - Similar mechanics to relational database: loop until player gets the number
+## Features
 
-**Rock paper scissors**
- - Player chooses their move
- - Computer chooses a move
- - Best out of 5
+## Tech Stack
+| Category | Tool |
+|----------|------|
+|**Language**| Python 3.13 |
+|**Database**| PostgreSQL |
+|**ORM / Driver**| psycopg / psycopg[binary] |
+|**Version Control**| Git + Github |
+|**OS**| Windows 10 |
 
-**Dice roller**
- - Player vs Computer
- - Best out of 6
+## Setup Instructions
 
-**Math Quiz**
- - Addition, Subtraction, Multiplication from 1 to 100
- - Fast-paced
- - One wrong answer, game ends
- - Max sleep timer is 3
-
-**Even or Odd**
- - Fast-paced
- - One wrong answer, game ends
- - Max sleep timer is 2
-
-
-****The program must connect to the postgresql database****
-
-**Database tables**
-- players table
-- games table
-- player_games table
-
-**players table structure**
-- player_id
-- player_name
-
-**games table**
-- game_id
-- game_name
-
-**player_games table**
-- player_id
-- game_id
-- best_score
-- latest_score
-- times_played
