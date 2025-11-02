@@ -4,6 +4,7 @@ It serves as a practice of **Python**, **PostgreSQL**, **Git**, and **Github** b
 
 ## Project Structure
 simple-python-games
+    
     games
         __init__.py
         dice_roller.py
