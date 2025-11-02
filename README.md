@@ -40,3 +40,12 @@ simple-python-games
 
 ## Setup Instructions
 
+### 1.) Clone the repository
+Navigate to the folder where you want to clone the repository and enter this command in the terminal:
+git clone https://github.com/AJTM22/simple-python-games.git
+
+### 2.) Install dependencies
+pip install -r requirements.txt
+
+### 3.) Configure environment variables (.env)
+Create a .env file in the root directory and follow the .env.example
